@@ -39,9 +39,9 @@ l = 0.5;
 r = 0.1;
 
 % Define distance for avoid obstacle
-D_ao = 2;
+D_ao = 1;
 % Define distance for follow wall
-D_wf = 3;
+D_wf = 1.5;
 
 %==========================================================================
 %% Perform simulation
