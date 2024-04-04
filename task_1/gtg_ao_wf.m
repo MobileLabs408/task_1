@@ -1,6 +1,6 @@
 %==========================================================================
 % Author: Carl Larsson
-% Description: Parameters and initilization of go to goal, avoid obstacle and wall follower
+% Description: Parameters and initilization of: go to goal, avoid obstacle and wall follower
 % Date: 2024-04-03
 %==========================================================================
 %% Clean up
@@ -28,8 +28,8 @@ yg=gPos(1);
 % Proportional gain
 P = 10;
 
-%Tolerance distance for when to cancel simulation
-tol=0.1;
+% Tolerance distance for when to cancel simulation
+tol=0.01;
 
 % Velocity
 v = 0.1;
@@ -38,9 +38,9 @@ v = 0.1;
 l = 0.5;
 r = 0.1;
 
-% Define distance for avoid obstacle
+% Define distance for avoid obstacle behavior
 D_ao = 0.5;
-% Define distance for follow wall
+% Define distance for follow wall behavior
 D_wf = 1;
 
 %==========================================================================
@@ -48,7 +48,7 @@ D_wf = 1;
 %==========================================================================
 
 % Simulation time
-SimulationTime=1000;
+SimulationTime=1100;
 
 % Run simulink file
 output=sim('differential_drive', SimulationTime);

@@ -16,21 +16,27 @@ for row = 1:5
     for column = 1:5
         % 0 is obstacle
         if sensor_matrix(row,column) == 0
-            % Convert to global coordinates, note that robot is in center, (3,3), in local coordinates
-            % Also, y starts counting from the top, not bottoms, so have to reverse sign
+            % Convert to global coordinates.
+            % Note that robot is in center, (3,3), in local coordinates,
+            % therefor have to subtract it so robot is "the center".
+            % 
+            % Shift row (y) and column (x) so format is [x;y]
+            %
+            % Also, y starts counting from the top, not bottom, 
+            % so have to reverse sign (- on second element)
             temp = [column;row] - [3;3];
-            obstacle_list{end+1} = round((x + [temp(1);-temp(2)])*2)/2;
+            obstacle_list{end+1} = round((x + [temp(1);-temp(2)])*10)/10;
         end
     end
 end
 
-% If no obstacles are detected, give value outside sensor range
-% This is beyond threshold (D_wf D_ao) and thus wont affect anything
+% If no obstacles are detected, give value robot position
+% This wont affect behavior since it results in dot product = 0
 if numel(obstacle_list) == 0
     x_obs = x + [0;0];
 else
 
-    % Take random element as closest (the discrete nature of the map will result in same being chosen always if two obstacles are equal length appart)
+    % Take first element as closest
     closest = 1;
     % Unless it is the robots own position
     if norm(obstacle_list{closest}) == 0
@@ -47,9 +53,7 @@ else
         end
     end
     
-    % Get global coordinate (obstacle list has relative to robot)
-    % Indexes are flipped somehow, resulting in flipped x and y
-    % Also, y starts counting from the top, not bottoms, so have to reverse sign
+    % Provide closest obstacle global position
     x_obs = obstacle_list{closest};
 
 end
