@@ -26,7 +26,7 @@ end
 closest = 1;
 % Find closest obstacle (will always result in orthogonal)
 for obstacle = 1:numel(obstacle_list)
-    if norm(x-obstacle_list{obstacle}) < norm(x-obstacle_list{closest})
+    if norm(obstacle_list{obstacle}) < norm(obstacle_list{closest})
         closest = obstacle;
     end
 end
