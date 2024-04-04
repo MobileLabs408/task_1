@@ -8,7 +8,7 @@
 %==========================================================================
 function x_obs = find_obs(sensor_matrix, x)
 
-% Save all relative coordinates (to the robot) where obstacles are found
+% Save all global coordinates (to the robot) where obstacles are found
 obstacle_list = {};
 
 % loop through entire matrix to search for obstacles
@@ -16,8 +16,10 @@ for row = 1:5
     for column = 1:5
         % 0 is obstacle
         if sensor_matrix(row,column) == 0
-            % Convert to relative coordinate where robot is in center, (3,3)
-            obstacle_list{end+1} = [row;column] - [3;3];
+            % Convert to global coordinates, note that robot is in center, (3,3), in local coordinates
+            % Also, y starts counting from the top, not bottoms, so have to reverse sign
+            temp = [column;row] - [3;3];
+            obstacle_list{end+1} = round((x + [temp(1);-temp(2)])*2)/2;
         end
     end
 end
@@ -39,7 +41,7 @@ else
     for obstacle = 1:numel(obstacle_list)
         % Best is not allowed to be the robots own position
         if(norm(obstacle_list{obstacle}) ~= 0)
-            if norm(obstacle_list{obstacle}) < norm(obstacle_list{closest})
+            if norm(x-obstacle_list{obstacle}) < norm(x-obstacle_list{closest})
                 closest = obstacle;
             end
         end
@@ -48,7 +50,7 @@ else
     % Get global coordinate (obstacle list has relative to robot)
     % Indexes are flipped somehow, resulting in flipped x and y
     % Also, y starts counting from the top, not bottoms, so have to reverse sign
-    x_obs = round(x) + [obstacle_list{closest}(2); -obstacle_list{closest}(1)];
+    x_obs = obstacle_list{closest};
 
 end
 

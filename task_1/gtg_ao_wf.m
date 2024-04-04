@@ -1,6 +1,6 @@
 %==========================================================================
 % Author: Carl Larsson
-% Description: Performs go to goal, avoid obstacle and wall follower
+% Description: Parameters and initilization of go to goal, avoid obstacle and wall follower
 % Date: 2024-04-03
 %==========================================================================
 %% Clean up
@@ -39,9 +39,9 @@ l = 0.5;
 r = 0.1;
 
 % Define distance for avoid obstacle
-D_ao = 1;
+D_ao = 0.5;
 % Define distance for follow wall
-D_wf = 1.5;
+D_wf = 1;
 
 %==========================================================================
 %% Perform simulation
