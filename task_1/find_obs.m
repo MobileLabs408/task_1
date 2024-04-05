@@ -25,6 +25,7 @@ for row = 1:5
             % Also, y starts counting from the top, not bottom, 
             % so have to reverse sign (- on second element)
             temp = [column;row] - [3;3];
+            % Round to 1 decimal
             obstacle_list{end+1} = round((x + [temp(1);-temp(2)])*10)/10;
         end
     end
